@@ -31,9 +31,9 @@ def categories(request):
     return render(request, 'catalog/categories.html', context)
 
 def inform(request, pk):
-    category_item = Product.objects.get(pk=pk)
+    products_item = Product.objects.get(pk=pk)
     context = {
-        'object_list': Product.objects.filter(category_id=pk),
-        'title': f"{category_item.name}"
+        'object_list': Product.objects.filter(pk=pk),
+        'title': f"{products_item.name}"
     }
     return render(request, 'catalog/catalog.html', context)
