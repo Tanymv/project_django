@@ -17,4 +17,4 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ("name", "description",)
 
     def description(self, obj):
-        return obj.description[:100]
+        return obj.body[:100]

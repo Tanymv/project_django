@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView, CreateView
 
 from catalog.models import Product
 
@@ -23,17 +24,38 @@ def index(request):
     }
     return render(request, 'catalog/index.html', context)
 
-def categories(request):
-    context = {
-        'object_list': Product.objects.all(),
+# def products(request):
+#     context = {
+#         'object_list': Product.objects.all(),
+#         'title': f"Магазин продуктов"
+#     }
+#     return render(request, 'catalog/product_list.html', context)
+
+class ProductListView(ListView):
+    model = Product
+    extra_context = {
         'title': f"Магазин продуктов"
     }
-    return render(request, 'catalog/categories.html', context)
 
-def inform(request, pk):
-    products_item = Product.objects.get(pk=pk)
-    context = {
-        'object_list': Product.objects.filter(pk=pk),
-        'title': f"{products_item.name}"
-    }
-    return render(request, 'catalog/catalog.html', context)
+# def inform(request, pk):
+#     products_item = Product.objects.get(pk=pk)
+#     context = {
+#         'object_list': Product.objects.filter(pk=pk),
+#         'title': f"{products_item.name}"
+#     }
+#     return render(request, 'catalog/catalog.html', context)
+
+class CatalogListView(ListView):
+    model = Product
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(pk=self.kwargs.get('pk'))
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        products_item = Product.objects.get(pk=self.kwargs.get('pk'))
+        context_data['title'] = f"{products_item.title}"
+        return context_data
+
+
