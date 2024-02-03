@@ -1,0 +1,21 @@
+
+{% extends 'catalog/home.html' %}
+{% load my_tags %}
+
+{% block content %}
+<div class="row text-center">
+    {% for object in object_list %}
+                {% include 'catalog/includs/inc_category.html' %}
+    {% endfor %}
+</div>
+
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    Вкусняшка
+                    <small class="d-block mb-3 text-muted">&copy; 2024</small>
+                </div>
+
+
+</footer>
+{% endblock %}
