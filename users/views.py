@@ -9,16 +9,7 @@ from django.views.generic import CreateView
 from config import settings
 from users.forms import UserRegisterForm, NewPasswordForm
 from users.models import User
-from django.contrib.auth.views import LoginView as BaseLoginView
-from django.contrib.auth.views import LogoutView as BaseLogoutView
 
-
-class LoginView(BaseLogoutView):
-    template_name = 'users/login.html'
-
-
-class LogoutView(BaseLogoutView):
-    pass
 
 
 class RegisterView(CreateView):
